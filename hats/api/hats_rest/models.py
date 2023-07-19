@@ -1,6 +1,13 @@
 from django.db import models
 
 # Create your models here.
+
+
+class LocationVO(models.Model):
+    import_href = models.CharField(max_length=200, unique=True)
+    closet_name = models.CharField(max_length=200)
+
+
 class Hat(models.Model):
     name = models.CharField(max_length=200)
     fabric = models.CharField(max_length=50)
@@ -8,7 +15,8 @@ class Hat(models.Model):
     picture_url = models.URLField(null=True)
 
     location = models.ForeignKey(
-        "wardrobe_api.Location",
+        LocationVO,
         related_name="location",
+        null=True,
         on_delete=models.CASCADE
     )

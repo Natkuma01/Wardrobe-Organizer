@@ -17,6 +17,7 @@ class HatListEncoder(ModelEncoder):
     model = Hat
     properties = [
         "name",
+        "id"
     ]
 
     def get_extra_data(self, o):
@@ -70,11 +71,29 @@ def api_list_hats(request, location_vo_id=None):
             )
 
 
-@require_http_methods(["GET"])
-def api_show_hat(request, id=id):
-    hat = Hat.objects.get(id=id)
-    return JsonResponse(
-        hat,
-        encoder=HatDetailEncoder,
-        safe=False,
-    )
+@require_http_methods(["GET", "PUT", "DELETE"])
+def api_show_hat(request, id):
+    if request.method == "GET":
+        hat = Hat.objects.get(id=id)
+        return JsonResponse(
+            hat,
+            encoder=HatDetailEncoder,
+            safe=False,
+        )
+    elif request.method == "DELETE":
+        count, _ = Hat.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count > 0})
+    else:
+        content = json.loads(request.body)
+
+        location_href = content["location"]
+        location = LocationVO.objects.get(import_href=location_href)
+        content["location"] = location
+
+        Hat.objects.filter(id=id).update(**content)
+        hat = Hat.objects.get(id=id)
+        return JsonResponse(
+            hat,
+            encoder=HatDetailEncoder,
+            safe=False,
+        )

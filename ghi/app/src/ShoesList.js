@@ -1,11 +1,14 @@
 function ShoesList (props) {
+  if (props.shoes === undefined) {
+    return null;
+  }
     return (
         <table className="table table-striped">
         <thead>
           <tr>
             <th>Name</th>
             <th>Conference</th>
-            
+
           </tr>
         </thead>
         <tbody>
@@ -23,8 +26,6 @@ function ShoesList (props) {
         </tbody>
       </table>
     )
-
-
 }
 
 export default ShoesList;

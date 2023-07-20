@@ -11,12 +11,11 @@ root.render(
   </React.StrictMode>
 );
 
-
 reportWebVitals();
 
 
 async function loadShoes() {
-  const response = await fetch('http://localhost:8090/api/shoes/');
+  const response = await fetch('http://localhost:8080/api/shoes/');
   if (response.ok) {
     const data = await response.json();
     root.render(
@@ -29,3 +28,18 @@ async function loadShoes() {
   }
 }
 loadShoes();
+
+async function loadHats() {
+  const response = await fetch('http://localhost:8090/api/hats/');
+  if (response.ok) {
+    const data = await response.json();
+    root.render(
+      <React.StrictMode>
+        <App hats={data.hats} />
+      </React.StrictMode>
+    );
+  } else {
+    console.error(response);
+  }
+}
+loadHats();

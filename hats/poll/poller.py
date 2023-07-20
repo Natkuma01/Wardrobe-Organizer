@@ -22,7 +22,6 @@ def get_locations():
             import_href=location["href"],
             defaults={"closet_name": location["closet_name"]},
         )
-    print("got the Donuts")
 
 def poll():
     while True:

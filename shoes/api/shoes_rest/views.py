@@ -26,7 +26,7 @@ class ShoeDetailEncoder(ModelEncoder):
         "manufacturer",
         "color",
         "picture",
-        "bin"
+        "bin",
     ]
     encoders = {
         "bin": BinVODetailEncoder()
@@ -41,11 +41,10 @@ def api_list_shoes(request, bin_vo_id=None):
             shoes = Shoe.objects.all()
         return JsonResponse(
             {"shoes": shoes},
-            encoder=ShoeListEncoder,
+            encoder=ShoeDetailEncoder,
         )
     else:
         content = json.loads(request.body)
-        print(content)
         try:
             bin_href = content["bin"]  
             bin = BinVO.objects.get(import_href=bin_href)
@@ -80,7 +79,7 @@ def api_show_shoe(request, pk):
     else:
         content = json.loads(request.body)
         
-        bin_href = content["bin"]  
+        bin_href = content["bin"]
         bin = BinVO.objects.get(import_href=bin_href)
         content["bin"] = bin 
 

@@ -17,7 +17,10 @@ class HatListEncoder(ModelEncoder):
     model = Hat
     properties = [
         "name",
-        "id"
+        "id",
+        "fabric",
+        "color",
+        "picture_url",
     ]
 
     def get_extra_data(self, o):

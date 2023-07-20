@@ -31,7 +31,7 @@ def poll():
             get_bins()
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(2)
+        time.sleep(60)
 
 
 if __name__ == "__main__":

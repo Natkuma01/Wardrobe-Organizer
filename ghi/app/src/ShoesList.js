@@ -1,5 +1,5 @@
 function ShoesList ({shoes}) {
-console.log(shoes)
+
 
     const handleRemove = async (id) => { 
        

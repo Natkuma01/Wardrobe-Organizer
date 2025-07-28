@@ -15,7 +15,7 @@ from hats_rest.models import LocationVO
 
 
 def get_locations():
-    response = requests.get("http://wardrobe-api:8000/api/locations/")
+    response = requests.get("http://wardrobe-api:8000/api/locations/", timeout=60)
     content = json.loads(response.content)
     for location in content["locations"]:
         LocationVO.objects.update_or_create(
